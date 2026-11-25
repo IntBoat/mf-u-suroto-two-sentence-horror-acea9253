@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
-"""Two-Sentence Horror (make.fun).
+"""Two-Sentence Horror — a make.fun two-sentence entry."""
+from pathlib import Path
 
-Writes the entry -- a horror story in exactly two sentences, up to 400
-characters -- to /output/entry.txt, where the sealed scorer reads it.
-"""
+ENTRY = "I set the nursery camera to record only motion, so it should have stayed silent all night. It sent me one clip: my daughter, asleep in her crib, while something under the bed whispered her name in my voice."
 
-import os
-
-TEXT = 'I taught my house to lock its doors at the sound of my voice. Last night it locked them when my voice called from the garden — and I was already in bed.'
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
